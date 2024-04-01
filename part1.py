@@ -94,7 +94,6 @@ def compute():
     # Assuming datasets and num_clusters are defined as described in part 1.A
     dataset_key = ['nc','nm','bvv','add','b']  # Assuming aniso is the dataset from part 1.A
     num_clusters = [2, 3, 5, 10]
-    pdf_pages = PdfPages("report.pdf")
 
     # Create a big figure
     fig, axs = plt.subplots(nrows=4, ncols=5, figsize=(20, 16))
@@ -111,7 +110,7 @@ def compute():
             ax = axs[j, i]
             ax.scatter(X[:, 0], X[:, 1], c=predicted_labels, cmap='viridis')
             ax.set_title(f'Dataset {i+1}, k={k}')
-    pdf_pages.savefig(fig)
+    plt.savefig("report.pdf")
 
     plt.close()  # Close the figure to release resources
 
@@ -121,22 +120,36 @@ def compute():
     # dct value: return a dictionary of one or more abbreviated dataset names (zero or more elements) 
     # and associated k-values with correct clusters.  key abbreviations: 'nc', 'nm', 'bvv', 'add', 'b'. 
     # The values are the list of k for which there is success. Only return datasets where the list of cluster size k is non-empty.
-    dct = answers["1C: cluster successes"] = {"xy": [3,4], "zx": [2]} 
+    dct = answers["1C: cluster successes"] = {"bvv": [3], "add": [3],"b":[3]} 
 
     # dct value: return a list of 0 or more dataset abbreviations (list has zero or more elements, 
     # which are abbreviated dataset names as strings)
-    dct = answers["1C: cluster failures"] = ["xy"]
+    dct = answers["1C: cluster failures"] = ["nc","nm"]
 
     """
     D. Repeat 1.C a few times and comment on which (if any) datasets seem to be sensitive to the choice of initialization for the k=2,3 cases. You do not need to add the additional plots to your report.
 
     Create a pdf of the plots and return in your report. 
     """
+    dataset_sensitivity = []
+    ds = {'nc': noisy_circles, 'nm': noisy_moons, 'bvv': varied, 'add': aniso, 'b': blobs}
+    for _ in range(5):
+        for key, (X, _) in ds.items():
+            for k in [2, 3]:
+                labels_init_1 = fit_kmeans((X, None), k)
+                labels_init_2 = fit_kmeans((X, None), k)
+                if not np.array_equal(labels_init_1, labels_init_2):
+                    dataset_sensitivity.append(key)
+                    break
+            else:
+                continue
+            break
+
 
     # dct value: list of dataset abbreviations
     # Look at your plots, and return your answers.
     # The plot is part of your report, a pdf file name "report.pdf", in your repository.
-    dct = answers["1D: datasets sensitive to initialization"] = [""]
+    dct = answers["1D: datasets sensitive to initialization"] = dataset_sensitivity
 
     return answers
 
