@@ -63,7 +63,6 @@ def compute():
     B. Modify the fit_kmeans function to return the SSE (see Equations 8.1 and 8.2 in the book).
     """
 
-    # dct value: the `fit_kmeans` function
     dct = answers["2B: fit_kmeans"] = fit_kmeans
     result = dct
 
@@ -82,10 +81,8 @@ def compute():
 
     dct = answers["2C: SSE plot"] = sse_values
     def plot_sse(sse_values):
-    # Unzip the list of tuples into k and SSE values
         k_values, sse = zip(*sse_values)
 
-    # Plot SSE as a function of k
         plt.plot(k_values, sse, marker='o', linestyle='-')
         plt.xlabel('Number of clusters (k)')
         plt.ylabel('Sum of Squared Errors (SSE)')
@@ -93,7 +90,6 @@ def compute():
         plt.xticks(k_values)
         plt.grid(True)
         plt.show()
-    # Call the function to plot SSE
     plot_sse(sse_values)
 
     """
