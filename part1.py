@@ -33,20 +33,11 @@ In the first task, you will explore how k-Means perform on datasets with diverse
 # the question asked. 
 
 def fit_kmeans(dataset, n_clusters):
-    # Unpack dataset
     data, labels = dataset
-
-    # Standardize the data
     scaler = StandardScaler()
     scaled_data = scaler.fit_transform(data)
-
-    # Initialize KMeans estimator
     kmeans = KMeans(n_clusters=n_clusters, random_state=0, init='random')
-
-    # Fit KMeans to the standardized data
     kmeans.fit(scaled_data)
-
-    # Get predicted cluster labels
     predicted_labels = kmeans.labels_
 
     return predicted_labels
@@ -91,14 +82,12 @@ def compute():
     """
 
 
-    # Assuming datasets and num_clusters are defined as described in part 1.A
+    
     dataset_key = ['nc','nm','bvv','add','b']  # Assuming aniso is the dataset from part 1.A
     num_clusters = [2, 3, 5, 10]
 
-    # Create a big figure
     fig, axs = plt.subplots(nrows=4, ncols=5, figsize=(20, 16))
 
-    # Iterate through each dataset
     for i, dataset in enumerate(dataset_key):
         X, y = dct[dataset]
         # Iterate through each number of clusters
@@ -112,7 +101,7 @@ def compute():
             ax.set_title(f'Dataset {i+1}, k={k}')
     plt.savefig("report.pdf")
 
-    plt.close()  # Close the figure to release resources
+    plt.close()  
 
 
 
