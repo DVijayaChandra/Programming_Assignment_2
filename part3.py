@@ -29,14 +29,9 @@ Recall from lecture that agglomerative hierarchical clustering is a greedy itera
 
 
 def data_index_function(data, index_set_I, index_set_J):
-    # Extract the data points corresponding to the index sets
     subset_I = data[list(index_set_I)]
     subset_J = data[list(index_set_J)]
-    
-    # Calculate pairwise distances between points in subset_I and subset_J
     distances = np.sqrt(np.sum((subset_I[:, np.newaxis] - subset_J) ** 2, axis=-1))
-    
-    # Find the minimum distance (single-link clustering)
     min_distance = np.min(distances)
     
     return min_distance
@@ -51,7 +46,7 @@ def compute():
     """
     dataset = io.loadmat("hierarchical_toy_data.mat")
     
-    # return value of scipy.io.loadmat()
+   
     answers["3A: toy data"] = dataset
 
     """
@@ -63,7 +58,7 @@ def compute():
     # Plot a dendrogram
     dendrogram = sch.dendrogram(Z)
 
-    # Customize the plot (optional)
+
     plt.title('Dendrogram')
     plt.xlabel('Data Points')
     plt.ylabel('Distance')
